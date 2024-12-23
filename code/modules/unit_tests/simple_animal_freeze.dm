@@ -125,7 +125,17 @@
 		/mob/living/simple_animal/hostile/vox/ranged/space/laser,
 		/mob/living/simple_animal/hostile/zombie/cheesezombie,
 		/mob/living/simple_animal/hostile/zombie/nocorpse,
-
+		/mob/living/simple_animal/hostile/fleshmind/slicer,
+		/mob/living/simple_animal/hostile/fleshmind/floater,
+		/mob/living/simple_animal/hostile/fleshmind/globber,
+		/mob/living/simple_animal/hostile/fleshmind/stunner,
+		/mob/living/simple_animal/hostile/fleshmind/hiborg,
+		/mob/living/simple_animal/hostile/fleshmind/himan,
+		/mob/living/simple_animal/hostile/fleshmind/treader,
+		/mob/living/simple_animal/hostile/fleshmind/phaser,
+		/mob/living/simple_animal/hostile/fleshmind/mechiver,
+		/mob/living/simple_animal/hostile/fleshmind/mauler_monkey,
+		/mob/living/simple_animal/hostile/fleshmind,
 		// DO NOT ADD NEW ENTRIES TO THIS LIST
 		// READ THE COMMENT ABOVE
 	)

@@ -225,6 +225,8 @@ DEFINE_BITFIELD(smoothing_junction, list(
 #define SMOOTH_GROUP_SHUTTERS S_OBJ(75)
 
 #define SMOOTH_GROUP_WATER S_OBJ(76) ///obj/effect/abstract/liquid_turf
+
+#define SMOOTH_GROUP_WIREWEED S_OBJ(77)
 //NOVA EDIT END
 
 #define SMOOTH_GROUP_GRAV_FIELD S_OBJ(69)
