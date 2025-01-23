@@ -122,7 +122,7 @@ GLOBAL_LIST_INIT(all_loadout_categories, init_loadout_categories())
 	if(manager.menu)
 		return FALSE
 
-	var/list/loadout = manager.preferences.read_preference(/datum/preference/loadout)
+	var/list/loadout = manager.get_current_loadout() // NOVA EDIT: Multiple loadout presets: ORIGINAL: var/list/loadout = manager.preferences.read_preference(/datum/preference/loadout)
 	var/list/allowed_configs = list()
 	if(initial(item_path.greyscale_config))
 		allowed_configs += "[initial(item_path.greyscale_config)]"
@@ -152,7 +152,7 @@ GLOBAL_LIST_INIT(all_loadout_categories, init_loadout_categories())
 	if(!istype(open_menu))
 		CRASH("set_slot_greyscale called without a greyscale menu!")
 
-	var/list/loadout = manager.preferences.read_preference(/datum/preference/loadout)
+	var/list/loadout = manager.get_current_loadout() // NOVA EDIT: Multiple loadout presets: ORIGINAL: var/list/loadout = manager.preferences.read_preference(/datum/preference/loadout)
 	if(!loadout?[item_path])
 		return FALSE
 
@@ -161,12 +161,12 @@ GLOBAL_LIST_INIT(all_loadout_categories, init_loadout_categories())
 		return FALSE
 
 	loadout[item_path][INFO_GREYSCALE] = colors.Join("")
-	manager.preferences.update_preference(GLOB.preference_entries[/datum/preference/loadout], loadout)
+	manager.save_current_loadout(loadout) // NOVA EDIT: Multiple loadout presets: ORIGINAL: manager.preferences.update_preference(GLOB.preference_entries[/datum/preference/loadout], loadout)
 	return TRUE // update UI
 
 /// Sets the name of the item.
 /datum/loadout_item/proc/set_name(datum/preference_middleware/loadout/manager, mob/user)
-	var/list/loadout = manager.preferences.read_preference(/datum/preference/loadout)
+	var/list/loadout = manager.get_current_loadout() // NOVA EDIT: Multiple loadout presets: ORIGINAL: var/list/loadout = manager.preferences.read_preference(/datum/preference/loadout)
 	var/input_name = tgui_input_text(
 		user = user,
 		message = "What name do you want to give the [name]? Leave blank to clear.",
@@ -177,7 +177,7 @@ GLOBAL_LIST_INIT(all_loadout_categories, init_loadout_categories())
 	if(QDELETED(src) || QDELETED(user) || QDELETED(manager) || QDELETED(manager.preferences))
 		return FALSE
 
-	loadout = manager.preferences.read_preference(/datum/preference/loadout) // Make sure no shenanigans happened
+	loadout = manager.get_current_loadout() // NOVA EDIT: Multiple loadout presets: ORIGINAL: loadout = manager.preferences.read_preference(/datum/preference/loadout) // Make sure no shenanigans happened
 	if(!loadout?[item_path])
 		return FALSE
 
@@ -186,8 +186,9 @@ GLOBAL_LIST_INIT(all_loadout_categories, init_loadout_categories())
 	else if(input_name == "")
 		loadout[item_path] -= INFO_NAMED
 
-	manager.preferences.update_preference(GLOB.preference_entries[/datum/preference/loadout], loadout)
-	return TRUE // NOVA EDIT - Temp fix to loadout UI issue while waiting on upstream fix - ORIGINAL: return FALSE // no update needed
+	manager.save_current_loadout(loadout) // NOVA EDIT: Multiple loadout presets: ORIGINAL: manager.preferences.update_preference(GLOB.preference_entries[/datum/preference/loadout], loadout)
+	return FALSE // no update needed
+// NOVA EDIT END
 
 /// Used for reskinning an item to an alt skin.
 /datum/loadout_item/proc/set_skin(datum/preference_middleware/loadout/manager, mob/user, params)
@@ -198,12 +199,12 @@ GLOBAL_LIST_INIT(all_loadout_categories, init_loadout_categories())
 	if(!cached_reskin_options[reskin_to])
 		return FALSE
 
-	var/list/loadout = manager.preferences.read_preference(/datum/preference/loadout)
+	var/list/loadout = manager.get_current_loadout() // NOVA EDIT: Multiple loadout presets: ORIGINAL: var/list/loadout = manager.preferences.read_preference(/datum/preference/loadout)
 	if(!loadout?[item_path])
 		return FALSE
 
 	loadout[item_path][INFO_RESKIN] = reskin_to
-	manager.preferences.update_preference(GLOB.preference_entries[/datum/preference/loadout], loadout)
+	manager.save_current_loadout(loadout) // NOVA EDIT: Multiple loadout presets: ORIGINAL: manager.preferences.update_preference(GLOB.preference_entries[/datum/preference/loadout], loadout)
 	return TRUE // always update UI
 
 /**

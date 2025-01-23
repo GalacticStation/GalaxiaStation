@@ -28,6 +28,7 @@
 		CRASH("Invalid outfit passed to equip_outfit_and_loadout ([outfit])")
 
 	var/list/preference_list = preference_source.read_preference(/datum/preference/loadout)
+	preference_list = preference_list[preference_source.read_preference(/datum/preference/loadout_index)] // NOVA EDIT ADDITION: Multiple loadout presets
 	var/list/loadout_datums = loadout_list_to_datums(preference_list)
 	// Slap our things into the outfit given
 	for(var/datum/loadout_item/item as anything in loadout_datums)

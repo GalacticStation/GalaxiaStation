@@ -6952,6 +6952,8 @@
 #include "modular_nova\master_files\code\modules\language\_language.dm"
 #include "modular_nova\master_files\code\modules\language\language_holder.dm"
 #include "modular_nova\master_files\code\modules\library\skill_learning\skill_station.dm"
+#include "modular_nova\master_files\code\modules\loadout\loadout_menu.dm"
+#include "modular_nova\master_files\code\modules\loadout\loadout_preference.dm"
 #include "modular_nova\master_files\code\modules\logging\categories\log_category_debug.dm"
 #include "modular_nova\master_files\code\modules\logging\categories\log_category_game.dm"
 #include "modular_nova\master_files\code\modules\logging\categories\log_category_uplink.dm"

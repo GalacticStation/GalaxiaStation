@@ -32,3 +32,8 @@
 #define LOADOUT_OVERRIDE_JOB "Delete job items"
 #define LOADOUT_OVERRIDE_BACKPACK "Move job to backpack"
 #define LOADOUT_OVERRIDE_CASE "Place all in case"
+
+// NOTE TO FUTURE CODERS: If you increase this to a huge number, please restrict the overall **amount** of items players can take,
+// if item count restrictions have been significantly increased. You will end up with massively bloated save sizes otherwise.
+#define LOADOUT_MAX_PRESETS 12
+#define LOADOUT_MAX_NAME_LENGTH 24
