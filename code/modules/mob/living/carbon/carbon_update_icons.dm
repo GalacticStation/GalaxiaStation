@@ -550,7 +550,7 @@
 		. += "-[jointext(overlay.generate_icon_cache(), "-")]"
 	if(ishuman(owner))
 		var/mob/living/carbon/human/human_owner = owner
-		. += "-[human_owner.get_mob_height()]"
+		. += "-[human_owner.mob_height]"
 	return .
 
 ///Generates a cache key specifically for husks
@@ -563,7 +563,7 @@
 	. += "-[body_zone]"
 	if(ishuman(owner))
 		var/mob/living/carbon/human/human_owner = owner
-		. += "-[human_owner.get_mob_height()]"
+		. += "-[human_owner.mob_height]"
 	return .
 
 /obj/item/bodypart/head/generate_icon_key()
