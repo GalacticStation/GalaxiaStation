@@ -565,8 +565,8 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/wideplating/dark,
-/obj/effect/mob_spawn/corpse/human/geneticist,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mob_spawn/corpse/human/scientist/noid,
 /turf/open/floor/mineral/plastitanium/red,
 /area/ruin/syndibiodome)
 "hK" = (
@@ -1608,7 +1608,6 @@
 /turf/open/floor/iron/dark,
 /area/ruin/syndibiodome)
 "uS" = (
-/obj/effect/mob_spawn/corpse/human/geneticist,
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/trimline/purple/line{
@@ -1616,6 +1615,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mob_spawn/corpse/human/scientist/noid,
 /turf/open/floor/iron/dark/herringbone,
 /area/ruin/syndibiodome)
 "uW" = (
@@ -1837,13 +1837,13 @@
 /turf/open/misc/asteroid/snow/icemoon,
 /area/icemoon/surface/outdoors/noteleport)
 "wR" = (
-/obj/effect/mob_spawn/corpse/human/geneticist,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/trimline/purple/corner{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mob_spawn/corpse/human/scientist/noid,
 /turf/open/floor/iron/dark/herringbone,
 /area/ruin/syndibiodome)
 "wT" = (
@@ -3257,11 +3257,11 @@
 /turf/open/floor/grass,
 /area/ruin/syndibiodome)
 "MB" = (
-/obj/effect/mob_spawn/corpse/human/doctor,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 10
 	},
+/obj/effect/mob_spawn/corpse/human/doctor/noid,
 /turf/open/floor/mineral/plastitanium/red,
 /area/ruin/syndibiodome)
 "MH" = (

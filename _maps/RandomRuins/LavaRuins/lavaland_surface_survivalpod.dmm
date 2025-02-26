@@ -73,15 +73,12 @@
 /turf/open/floor/pod/dark,
 /area/ruin/powered)
 "q" = (
-/obj/effect/mob_spawn/corpse/human/miner/explorer{
-	brute_damage = 150;
-	oxy_damage = 50
-	},
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/decal/cleanable/blood/footprints{
 	dir = 1
 	},
+/obj/effect/mob_spawn/corpse/human/miner/noid,
 /turf/open/floor/pod/dark,
 /area/ruin/powered)
 "r" = (

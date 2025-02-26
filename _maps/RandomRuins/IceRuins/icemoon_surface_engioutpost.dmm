@@ -31,9 +31,9 @@
 /turf/open/floor/iron,
 /area/ruin/planetengi)
 "ar" = (
-/obj/effect/mob_spawn/corpse/human/assistant,
 /obj/item/construction/rcd,
 /obj/structure/cable,
+/obj/effect/mob_spawn/corpse/human/engineer/noid,
 /turf/open/floor/catwalk_floor/iron,
 /area/ruin/planetengi)
 "as" = (
@@ -688,11 +688,11 @@
 /turf/open/floor/iron/icemoon,
 /area/ruin/planetengi)
 "dr" = (
-/obj/effect/mob_spawn/corpse/human/engineer/mod,
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
+/obj/effect/mob_spawn/corpse/human/engineer/noid,
 /turf/open/floor/iron/icemoon,
 /area/ruin/planetengi)
 "ds" = (
@@ -818,6 +818,13 @@
 "Ai" = (
 /turf/open/floor/plating/snowed/smoothed/icemoon,
 /area/icemoon/surface/outdoors/nospawn)
+"DX" = (
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/item/mod/control/pre_equipped/engineering,
+/turf/open/floor/iron/icemoon,
+/area/ruin/planetengi)
 "GG" = (
 /obj/effect/turf_decal/tile/yellow,
 /turf/open/floor/iron/icemoon,
@@ -1114,7 +1121,7 @@ bd
 cF
 cU
 GG
-Wh
+DX
 dp
 Ai
 "}

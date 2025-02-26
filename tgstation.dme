@@ -8473,6 +8473,8 @@
 #include "modular_nova\modules\nanotrasen_rep\code\clothing.dm"
 #include "modular_nova\modules\nanotrasen_rep\code\nanotrasen_consultant.dm"
 #include "modular_nova\modules\new_cells\code\power_cell.dm"
+#include "modular_nova\modules\new_legion_types\code\modules\mob_spawn\corpses\mining_corpses.dm"
+#include "modular_nova\modules\new_legion_types\code\modules\mob_spawn\corpses\noid_corpses.dm"
 #include "modular_nova\modules\night_vision\night_vision.dm"
 #include "modular_nova\modules\novaya_ert\code\advanced_choice_beacon.dm"
 #include "modular_nova\modules\novaya_ert\code\back.dm"

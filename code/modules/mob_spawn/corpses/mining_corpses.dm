@@ -29,6 +29,7 @@
 	var/obj/item/organ/legion_tumour/cancer = new()
 	cancer.Insert(spawned_human, special = TRUE, movement_flags = DELETE_IF_REPLACED)
 
+/* NOVA EDIT REMOVAL BEGIN - NEW_LEGION_CORPSES
 /// Returns the outfit worn by our corpse
 /obj/effect/mob_spawn/corpse/human/legioninfested/proc/select_outfit()
 	var/corpse_theme = pick_weight(list(
@@ -61,6 +62,8 @@
 			return /datum/outfit/syndicatecommandocorpse/lessenedgear
 		if("Shadow")
 			return /datum/outfit/consumed_shadowperson
+
+
 
 /// Corpse spawner used by dwarf legions to make small corpses
 /obj/effect/mob_spawn/corpse/human/legioninfested/dwarf
@@ -103,6 +106,112 @@
 			return /datum/outfit/syndicatecommandocorpse/lessenedgear
 		if("Shadow")
 			return /datum/outfit/consumed_shadowperson
+*/
+//NOVA EDIT REMOVAL END - NEW_LEGION_CORPSES
+
+// NOVA EDIT START - NEW_LEGION_CORPSES
+/obj/effect/mob_spawn/corpse/human/legioninfested/proc/select_outfit()
+	var/corpse_theme = pick_weight(list(
+		"Miner" = 53,
+		"Clown" = 5,
+		"Ashwalker" = 13,
+		"Golem" = 8,
+		pick(list(
+			"Cultist",
+			"Dame",
+			"Operative",
+		)) = 4,
+		pick(list(
+			"Engineer",
+			"Scientist",
+			"CargoTech",
+			"Cook",
+			"Doctor",
+		)) = 15,
+	))
+
+	switch(corpse_theme)
+		if("Miner")
+			return /datum/outfit/consumed_miner
+		if("Ashwalker")
+			return /datum/outfit/consumed_ashwalker
+		if("Golem")
+			return /datum/outfit/consumed_golem
+		if("Clown")
+			return /datum/outfit/consumed_clown
+		if("Cultist")
+			return /datum/outfit/consumed_cultist
+		if("Dame")
+			return /datum/outfit/consumed_dame
+		if("Operative")
+			return /datum/outfit/syndicatecommandocorpse/lessenedgear
+		if("Engineer")
+			return /datum/outfit/consumed_engineer
+		if("Scientist")
+			return /datum/outfit/consumed_scientist
+		if("CargoTech")
+			return /datum/outfit/consumed_cargotech
+		if("Cook")
+			return /datum/outfit/consumed_cook
+		if("Doctor")
+			return /datum/outfit/consumed_doctor
+
+
+/obj/effect/mob_spawn/corpse/human/legioninfested/snow/select_outfit()
+	var/corpse_theme = pick_weight(list(
+		"Miner" = 59,
+		"Clown" = 5,
+		"Golem" = 7,
+		"Settler" = 7,
+		pick(list(
+			"Cultist",
+			"Heremoth",
+			"Operative",
+		)) = 4,
+		pick(list(
+			"Engineer",
+			"Scientist",
+			"Geneticist",
+			"CargoTech",
+			"Cook",
+			"Doctor",
+		)) = 16,
+	))
+
+	switch(corpse_theme)
+		if("Miner")
+			return /datum/outfit/consumed_miner
+		if("Settler")
+			return /datum/outfit/consumed_ice_settler
+		if("Heremoth")
+			return /datum/outfit/consumed_heremoth
+		if("Clown")
+			return /datum/outfit/consumed_clown
+		if("Cultist")
+			return /datum/outfit/consumed_cultist
+		if("Golem")
+			return /datum/outfit/consumed_golem
+		if("Operative")
+			return /datum/outfit/syndicatecommandocorpse/lessenedgear
+		if("Engineer")
+			return /datum/outfit/consumed_engineer
+		if("Scientist")
+			return /datum/outfit/consumed_scientist
+		if("CargoTech")
+			return /datum/outfit/consumed_cargotech
+		if("Cook")
+			return /datum/outfit/consumed_cook
+		if("Doctor")
+			return /datum/outfit/consumed_doctor
+
+/// Corpse spawner used by dwarf legions to make small corpses
+/obj/effect/mob_spawn/corpse/human/legioninfested/dwarf
+
+/obj/effect/mob_spawn/corpse/human/legioninfested/dwarf/special(mob/living/carbon/human/spawned_human)
+	. = ..()
+	spawned_human.dna.add_mutation(/datum/mutation/human/dwarfism)
+
+// NOVA EDIT END - NEW_LEGION_CORPSES
 
 /// Creates a dead legion-infested skeleton
 /obj/effect/mob_spawn/corpse/human/legioninfested/skeleton
