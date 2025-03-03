@@ -398,7 +398,8 @@
 		S = apply_status_effect(/datum/status_effect/incapacitating/sleeping, amount)
 	return S
 
-/mob/living/proc/SetSleeping(amount) //Sets remaining duration
+// NOVA EDIT - ORIGINAL: /mob/living/proc/SetSleeping(amount) //Sets remaining duration
+/mob/living/proc/SetSleeping(amount, is_voluntary = FALSE) //Sets remaining duration
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_SLEEP, amount) & COMPONENT_NO_STUN)
 		return
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
@@ -410,7 +411,8 @@
 	else if(S)
 		S.duration = world.time + amount
 	else
-		S = apply_status_effect(/datum/status_effect/incapacitating/sleeping, amount)
+		// NOVA EDIT - ORIGINAL: S = apply_status_effect(/datum/status_effect/incapacitating/sleeping, amount)
+		S = apply_status_effect(/datum/status_effect/incapacitating/sleeping, amount, is_voluntary)
 	return S
 
 /mob/living/proc/AdjustSleeping(amount) //Adds to remaining duration
@@ -431,7 +433,12 @@
 	AdjustStun(-6 SECONDS)
 	AdjustKnockdown(-6 SECONDS)
 	AdjustUnconscious(-6 SECONDS)
-	AdjustSleeping(-10 SECONDS)
+	// NOVA EDIT BEGIN - ORIGINAL: AdjustSleeping(-100)
+	// Disables shaking awake if the mob used the sleep verb
+	var/datum/status_effect/incapacitating/sleeping/sleep_effect = IsSleeping()
+	if(sleep_effect && !sleep_effect.voluntary)
+		AdjustSleeping(-10 SECONDS)
+	// NOVA EDIT END
 	AdjustParalyzed(-6 SECONDS)
 	AdjustImmobilized(-6 SECONDS)
 

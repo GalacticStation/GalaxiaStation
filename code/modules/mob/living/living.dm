@@ -614,7 +614,7 @@
 	return health
 
 // MOB PROCS //END
-
+/* NOVA EDIT REMOVAL BEGIN - Handled in [modular_nova/master_files/code/modules/sleep/code/mob/living/living.dm]
 /mob/living/proc/mob_sleep()
 	set name = "Sleep"
 	set category = "IC"
@@ -625,7 +625,7 @@
 	else
 		if(tgui_alert(usr, "You sure you want to sleep for a while?", "Sleep", list("Yes", "No")) == "Yes")
 			SetSleeping(400) //Short nap
-
+NOVA EDIT REMOVAL END */
 
 /mob/proc/get_contents()
 
@@ -1230,6 +1230,12 @@
 	if(next_move > world.time)
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_INCAPACITATED))
+		// NOVA EDIT ADDITION BEGIN - Enhanced sleep
+		// Allows resisting if the sleep verb was used
+		var/datum/status_effect/incapacitating/sleeping/sleep_effect = IsSleeping()
+		if(!isnull(sleep_effect) && sleep_effect.voluntary)
+			return TRUE
+		// NOVA EDIT ADDITION END
 		return FALSE
 	return TRUE
 
@@ -1246,6 +1252,12 @@
 	changeNext_move(CLICK_CD_RESIST)
 
 	SEND_SIGNAL(src, COMSIG_LIVING_RESIST, src)
+	// NOVA EDIT ADDITION BEGIN - Enhanced sleep
+	// Allows resisting if the sleep verb was used
+	if(IsSleeping())
+		SetSleeping(0)
+		return
+	// NOVA EDIT ADDITION END
 	//resisting grabs (as if it helps anyone...)
 	if(!HAS_TRAIT(src, TRAIT_RESTRAINED) && pulledby)
 		log_combat(src, pulledby, "resisted grab")
