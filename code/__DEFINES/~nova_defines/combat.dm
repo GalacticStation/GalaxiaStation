@@ -55,7 +55,9 @@
 		Paralyze((paralyze_amount ? paralyze_amount : stamina_damage))
 
 #define HEADSMASH_BLOCK_ARMOR 20
+#define EYEGOUGE_BLOCK_ARMOR 10
 #define SUPLEX_TIMER 3 SECONDS
+#define EYEGOUGE_TIMER 3 SECONDS
 
 /// alt-clicking a human as another human while grappling them tightly makes you try for grappling-based maneuvers.
 /mob/living/carbon/human/click_alt(mob/user)
@@ -75,13 +77,13 @@
 		return FALSE
 	// psst, future coder - if you're adding more precise interactions, e.g. eye gouging/strangling, you're gonna need to make this less precise!
 	// just remove the deprecise_zone() call. account for the specifics after!
-	var/obj/item/bodypart/affecting = target.get_bodypart(deprecise_zone(user.zone_selected))
+	var/obj/item/bodypart/affecting = target.get_bodypart(user.zone_selected)
 	if(!affecting)
 		return FALSE
 	. = FALSE
 	if(HAS_TRAIT(user, TRAIT_PACIFISM)) //They're all violent acts. Even the suplex, which doesn't apply brute. (Yet. Maybe.)
 		return
-	switch(deprecise_zone(user.zone_selected))
+	switch(user.zone_selected)
 		if(BODY_ZONE_HEAD)
 			if(!(target.body_position == LYING_DOWN))
 				target.balloon_alert(user, "not floored!")
@@ -96,6 +98,13 @@
 			// Suplex!
 			. = TRUE
 			try_suplex(user, target)
+		if (BODY_ZONE_PRECISE_EYES)
+			if(!(target.body_position == LYING_DOWN))
+				target.balloon_alert(user, "not floored!")
+				return FALSE
+			// Eyegouge!
+			. = TRUE
+			try_eyegouge(user, target, affecting)
 		else // Assuming we're going for a limb...
 			var/datum/wound/blunt/blute_wound = affecting.get_wound_type(/datum/wound/blunt)
 			if(blute_wound && blute_wound.severity >= WOUND_SEVERITY_MODERATE)
@@ -167,6 +176,31 @@
 	target.apply_damage(15, BRUTE, affecting, armor_block, wound_bonus = fun_times_at_the_headbash_factory, bare_wound_bonus = fun_times_at_the_headbash_factory)
 	playsound(target, 'sound/effects/hit_kick.ogg', 70)
 	log_combat(user, target, "headsmashes", "against the floor")
+
+/// Attempts to perform an eyegougening, with the user violating the target's eyes with their fingers. Shouldn't work with helmets or armor.
+/datum/species/proc/try_eyegouge(mob/living/carbon/human/user, mob/living/carbon/human/target, obj/item/bodypart/affecting)
+	target.visible_message(span_danger("[user] aims for [target]'s eyes with [user.p_their()] fingers..."), ignored_mobs = user)
+	to_chat(user, span_danger("You loom your fingers above [target]'s eyes with malicious intent..."))
+	user.changeNext_move(EYEGOUGE_TIMER)
+	if(!do_after(user, EYEGOUGE_TIMER, target) || !grab_maneuver_state_check(user, target))
+		return 
+	var/armor_block = target.run_armor_check(affecting, MELEE)
+	var/eye_gouge = FALSE
+	// Using the same HEADSMASH_BLOCK_ARMOR as headslamming requires, because it makes sense. Can't eyegouge someone wearing a helmet huh?
+	if(armor_block < EYEGOUGE_BLOCK_ARMOR)
+		eye_gouge = TRUE
+
+	target.visible_message(span_danger("[user.name] violently jams [user.p_their()] fingers into [target.name]'s eyes! Ouch!"), \
+		span_userdanger("[user.name] violently jams [user.p_their()] fingers into your eyes! Fuck!"), ignored_mobs = user)
+	to_chat(user, span_danger("You slam your fingers into [target.name]'s eyesockets. Brutal!"))
+
+// wound bonus because imagine getting your eyes gouged. I'm still going to use the same things as the other interactions do because I don't wanna nerf or buff something too badly.
+	var/fun_times_at_the_eyegouge_factory = (eye_gouge ? 8 : 3)
+	if (eye_gouge)
+		target.adjustOrganLoss(ORGAN_SLOT_EYES, 10) // Guaranteed to blur vision... I think.
+	target.apply_damage(15, BRUTE, affecting, armor_block, wound_bonus = fun_times_at_the_eyegouge_factory, bare_wound_bonus = fun_times_at_the_eyegouge_factory)
+	playsound(target, 'sound/weapons/cqchit2.ogg', 70)
+	log_combat(user, target, "gouges", "[target.name]'s eyes")
 
 /// Attempts to perform a limb dislocation, with the user violently twisting one of target's limbs (as passed in). Only useful for extremities, because only extremities can eat dislocations.
 /datum/species/proc/try_dislocate(mob/living/carbon/human/user, mob/living/carbon/human/target, obj/item/bodypart/affecting)
