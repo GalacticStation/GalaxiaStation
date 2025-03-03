@@ -87,13 +87,7 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 
 	bodypart_overlay.set_appearance(typed_accessory)
 
-	// if(owner && !(owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS)) //are we a person? // NOVA EDIT REMOVAL
-	// NOVA EDIT ADDITION
-	if(owner && !(owner.living_flags)) //are we a person?
-	#ifdef STOP_OVERLAY_UPDATE_BODY_PARTS // Once #4504 is merged, remove this edit
-	#error A prior conflict has been resolved, please remove this edit
-	#endif
-	// NOVA EDIT ADDITION END
+	if(owner && !(owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS)) //are we a person?
 		owner.update_body_parts()
 	else
 		bodypart_owner?.update_icon_dropped() //are we in a limb?

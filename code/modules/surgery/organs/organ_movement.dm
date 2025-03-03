@@ -19,7 +19,7 @@
 		return FALSE
 	bodypart_insert(limb_owner = receiver, movement_flags = movement_flags)
 
-	if(!special)
+	if(!special && !(receiver.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))
 		receiver.update_body_parts()
 
 	return TRUE
@@ -36,7 +36,7 @@
 	mob_remove(organ_owner, special, movement_flags)
 	bodypart_remove(limb_owner = organ_owner, movement_flags = movement_flags)
 
-	if(!special)
+	if(!special && !(organ_owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))
 		organ_owner.update_body_parts()
 
 /*

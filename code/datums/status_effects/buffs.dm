@@ -310,15 +310,8 @@
 					if(itemUser.regenerate_limb(zone, FALSE))
 						itemUser.put_in_hand(newRod, hand, forced = TRUE)
 					else
-						var/obj/item/bodypart/L = itemUser.newBodyPart(BODY_ZONE_L_ARM, FALSE, FALSE)
-						if(L.try_attach_limb(itemUser))
-							L.update_limb(is_creating = TRUE)
-							itemUser.update_body_parts()
-							itemUser.put_in_hand(newRod, hand, forced = TRUE)
-						else
-							qdel(L)
-							consume_owner() //see above comment
-							return
+						consume_owner() //we can't regrow, abort abort
+						return
 					to_chat(itemUser, span_notice("Your arm suddenly grows back with the Rod of Asclepius still attached!"))
 				else
 					//Otherwise get rid of whatever else is in their hand and return the rod to said hand

@@ -12,7 +12,8 @@
 	mobility_flags = MOBILITY_FLAGS_CARBON_DEFAULT
 	blocks_emissive = EMISSIVE_BLOCK_NONE
 	mouse_drop_zone = TRUE
-	living_flags = ALWAYS_DEATHGASP
+	// STOP_OVERLAY_UPDATE_BODY_PARTS is removed after we call update_body_parts() during init.
+	living_flags = ALWAYS_DEATHGASP|STOP_OVERLAY_UPDATE_BODY_PARTS
 	///List of [/obj/item/organ]s in the mob. They don't go in the contents for some reason I don't want to know.
 	var/list/obj/item/organ/organs = list()
 	///Same as [above][/mob/living/carbon/var/organs], but stores "slot ID" - "organ" pairs for easy access.
