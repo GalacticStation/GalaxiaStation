@@ -161,8 +161,8 @@ There are several things that need to be remembered:
 		my_chest?.worn_uniform_offset?.apply_offset(uniform_overlay)
 		overlays_standing[UNIFORM_LAYER] = uniform_overlay
 
-	update_body_parts()
 	apply_overlay(UNIFORM_LAYER)
+	check_body_shape(BODYSHAPE_DIGITIGRADE, ITEM_SLOT_ICLOTHING)
 
 /mob/living/carbon/human/update_worn_id(update_obscured = TRUE)
 	remove_overlay(ID_LAYER)
@@ -452,9 +452,7 @@ There are several things that need to be remembered:
 		overlays_standing[SHOES_LAYER] = shoes_overlay
 
 	apply_overlay(SHOES_LAYER)
-
-	update_body_parts()
-
+	check_body_shape(BODYSHAPE_DIGITIGRADE, ITEM_SLOT_FEET)
 
 /mob/living/carbon/human/update_suit_storage(update_obscured = TRUE)
 	remove_overlay(SUIT_STORE_LAYER)
@@ -521,6 +519,7 @@ There are several things that need to be remembered:
 		overlays_standing[HEAD_LAYER] = head_overlay
 
 	apply_overlay(HEAD_LAYER)
+	check_body_shape(BODYSHAPE_SNOUTED, ITEM_SLOT_HEAD)
 
 /mob/living/carbon/human/update_worn_belt(update_obscured = TRUE)
 	remove_overlay(BELT_LAYER)
@@ -579,15 +578,13 @@ There are several things that need to be remembered:
 			return
 
 		var/icon_file = DEFAULT_SUIT_FILE
-
-		// NOVA EDIT ADDITION
+		// NOVA EDIT ADDITION START
 		var/mutant_override = FALSE
 		var/mutant_styles = NONE
 
-		//More currently unused digitigrade handling
 		if(bodyshape & BODYSHAPE_DIGITIGRADE)
 			if(worn_item.supports_variations_flags & CLOTHING_DIGITIGRADE_VARIATION)
-				icon_file = worn_item.worn_icon_digi || DIGITIGRADE_SUIT_FILE // NOVA EDIT CHANGE
+				icon_file = worn_item.worn_icon_digi || DIGITIGRADE_SUIT_FILE
 				mutant_override = TRUE
 
 		if(!mutant_override && bodyshape & BODYSHAPE_CUSTOM)
@@ -600,19 +597,16 @@ There are several things that need to be remembered:
 			var/obj/item/clothing/suit/worn_suit = wear_suit
 			if(istype(worn_suit) && worn_suit.gets_cropped_on_taurs)
 				mutant_styles |= get_taur_mode()
-		// NOVA EDIT END
+		// NOVA EDIT ADDITION END
 
-		var/mutable_appearance/suit_overlay = wear_suit.build_worn_icon(default_layer = SUIT_LAYER, default_icon_file = icon_file, override_file = mutant_override ? icon_file : null, mutant_styles = mutant_styles) // NOVA EDIT CHANGE - Mutant bodytypes and Taur-friendly suits!
-
+		var/mutable_appearance/suit_overlay = wear_suit.build_worn_icon(default_layer = SUIT_LAYER, default_icon_file = icon_file, override_file = mutant_override ? icon_file : null, mutant_styles = mutant_styles) // NOVA EDIT CHANGE - Mutant bodytypes and Taur-friendly suits! - ORIGINAL: var/mutable_appearance/suit_overlay = wear_suit.build_worn_icon(default_layer = SUIT_LAYER, default_icon_file = icon_file)
 		var/obj/item/bodypart/chest/my_chest = get_bodypart(BODY_ZONE_CHEST)
-		// NOVA EDIT ADDITION
-		if(!mutant_override)
-			my_chest?.worn_suit_offset?.apply_offset(suit_overlay)
-		// NOVA EDIT END
+		if(!mutant_override) // NOVA EDIT ADDITION
+			my_chest?.worn_suit_offset?.apply_offset(suit_overlay) // NOVA EDIT CHANGE - Indented
 		overlays_standing[SUIT_LAYER] = suit_overlay
 
-	update_body_parts()
 	apply_overlay(SUIT_LAYER)
+	check_body_shape(BODYSHAPE_DIGITIGRADE, ITEM_SLOT_OCLOTHING)
 
 /mob/living/carbon/human/update_pockets()
 	if(client && hud_used)
@@ -681,7 +675,7 @@ There are several things that need to be remembered:
 		overlays_standing[FACEMASK_LAYER] = mask_overlay
 
 	apply_overlay(FACEMASK_LAYER)
-	update_body_parts() //e.g. upgate needed because mask now hides lizard snout
+	check_body_shape(BODYSHAPE_SNOUTED, ITEM_SLOT_MASK)
 
 /mob/living/carbon/human/update_worn_back(update_obscured = TRUE)
 	remove_overlay(BACK_LAYER)
@@ -1079,6 +1073,44 @@ mutant_styles: The mutant style - taur bodytype, STYLE_TESHARI, etc. // NOVA EDI
 	add_overlay(my_head.get_limb_icon())
 	update_worn_head()
 	update_worn_mask()
+
+/**
+ * Used to perform regular updates to the limbs of humans with special bodyshapes
+ *
+ * * check_shapes: The bodyshapes to check for.
+ * Any limbs or organs which share this shape, will be updated.
+ * * ignore_slots: The slots to ignore when updating the limbs.
+ * This is useful for things like digitigrade legs, where we can skip some slots that we're already updating.
+ *
+ * return an integer, the number of limbs updated
+ */
+/mob/living/carbon/human/proc/check_body_shape(check_shapes = BODYSHAPE_DIGITIGRADE|BODYSHAPE_SNOUTED, ignore_slots = NONE)
+	. = 0
+	if(!(bodyshape & check_shapes))
+		// optimization - none of our limbs or organs have the desired shape
+		return .
+
+	for(var/obj/item/bodypart/limb as anything in bodyparts)
+		var/checked_bodyshape = limb.bodyshape
+		// accounts for stuff like snouts
+		for(var/obj/item/organ/organ in limb)
+			checked_bodyshape |= organ.external_bodyshapes
+
+		// any limb needs to be updated, so stop here and do it
+		if(checked_bodyshape & check_shapes)
+			. = update_body_parts()
+			break
+
+	if(!.)
+		return
+	// hardcoding this here until bodypart updating is more sane
+	// we need to update clothing items that may have been affected by bodyshape updates
+	if(check_shapes & BODYSHAPE_DIGITIGRADE)
+		for(var/obj/item/thing as anything in get_equipped_items())
+			if(thing.slot_flags & ignore_slots)
+				continue
+			if(thing.supports_variations_flags & DIGITIGRADE_VARIATIONS)
+				thing.update_slot_icon()
 
 // Hooks into human apply overlay so that we can modify all overlays applied through standing overlays to our height system.
 // Some of our overlays will be passed through a displacement filter to make our mob look taller or shorter.
