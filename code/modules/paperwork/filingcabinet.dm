@@ -194,6 +194,7 @@ GLOBAL_LIST_EMPTY(employmentCabinets)
 		var/datum/mind/filed_mind = target.mind_ref.resolve()
 		if(filed_mind && ishuman(filed_mind.current))
 			addFile(filed_mind.current)
+	new /obj/item/folder/cargo_contract/old(src) //NOVA EDIT ADDITION
 
 /obj/structure/filingcabinet/employment/proc/addFile(mob/living/carbon/human/employee)
 	new /obj/item/paper/employment_contract(src, employee.mind.name)

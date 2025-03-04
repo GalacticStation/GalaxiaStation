@@ -8518,6 +8518,8 @@
 #include "modular_nova\modules\organs\code\tongue.dm"
 #include "modular_nova\modules\oversized\code\oversized_quirk.dm"
 #include "modular_nova\modules\panicbunker\code\panicbunker.dm"
+#include "modular_nova\modules\paperwork\code\folders_premade.dm"
+#include "modular_nova\modules\paperwork\code\paper_premade.dm"
 #include "modular_nova\modules\paycheck_rations\code\quirk.dm"
 #include "modular_nova\modules\paycheck_rations\code\rationpacks.dm"
 #include "modular_nova\modules\paycheck_rations\code\reagents.dm"

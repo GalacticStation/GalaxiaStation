@@ -16,6 +16,7 @@
 	new /obj/item/storage/photo_album/qm(src)
 	new /obj/item/circuitboard/machine/ore_silo(src)
 	new /obj/item/storage/bag/garment/quartermaster(src)
+	new /obj/item/folder/cargo_contract/old(src) //NOVA EDIT ADDITION
 
 /obj/structure/closet/secure_closet/quartermaster/populate_contents_immediate()
 	. = ..()

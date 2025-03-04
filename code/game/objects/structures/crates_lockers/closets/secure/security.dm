@@ -18,6 +18,8 @@
 	new /obj/item/radio/headset/heads/captain(src)
 	new /obj/item/door_remote/captain(src)
 	new /obj/item/storage/photo_album/captain(src)
+	new /obj/item/card/id/departmental_budget(src) //NOVA EDIT ADDITION
+	new /obj/item/folder/cargo_contract/old(src) //NOVA EDIT ADDITION
 	new /obj/item/card/id/departmental_budget(src) // NOVA EDIT ADDITION
 
 /obj/structure/closet/secure_closet/captains/populate_contents_immediate()
