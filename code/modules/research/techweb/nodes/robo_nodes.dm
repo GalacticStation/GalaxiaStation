@@ -95,7 +95,8 @@
 		"freeformcore_module",
 		"onehuman_module",
 		"purge_module",
-		"ai_power_upgrade"
+		"ai_power_upgrade",
+		"ai_uplink_brain", // NOVA EDIT ADDITION
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_3_POINTS)
 	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_COMMAND)

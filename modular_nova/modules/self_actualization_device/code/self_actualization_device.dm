@@ -213,8 +213,34 @@
 	var/mob/living/carbon/human/patient = occupant
 	var/original_name = patient.dna.real_name
 
-	patient.client?.prefs?.safe_transfer_prefs_to_with_damage(patient)
+	// Check for AI-brain upload. If it was the brain before, then we should replace "new me"s brain with cybernetic one.
+	var/obj/item/organ/brain/cybernetic/ai/old_ai_brain = patient.get_organ_by_type(/obj/item/organ/brain/cybernetic/ai)
+	var/mob/living/silicon/ai/real_ai_player
+	if(istype(old_ai_brain) && old_ai_brain.mainframe)
+		real_ai_player = old_ai_brain.mainframe
+		var/datum/preferences/check_prefs = patient.client?.prefs
+		if(!istype(check_prefs))
+			say("Uh-oh! We tried to contact user manufacturer, but they blocked our requests. Aborting operation.")
+			playsound(src, 'sound/machines/microwave/microwave-end.ogg', 100, FALSE)
+			open_machine()
+			return
+		if(!is_augmented_enough(check_prefs))
+			say("Uh-oh! It seems like your manufacturer has provided blueprints with organic components to actualize your body! Aborting operation.")
+			playsound(src, 'sound/machines/microwave/microwave-end.ogg', 100, FALSE)
+			open_machine()
+			return
+		old_ai_brain.undeploy()
+		real_ai_player.client?.prefs?.safe_transfer_prefs_to_with_damage(patient)
+	else
+		patient.client?.prefs?.safe_transfer_prefs_to_with_damage(patient)
+
 	patient.dna.update_dna_identity()
+
+	if(istype(old_ai_brain))
+		var/obj/item/organ/brain/cybernetic/ai/new_ai_brain = new
+		if(!new_ai_brain.Insert(patient, movement_flags = DELETE_IF_REPLACED))
+			qdel(new_ai_brain) // You get no brain, whoops. Something really bad happened here
+
 	log_game("[key_name(patient)] used a Self-Actualization Device at [loc_name(src)].")
 
 	if(patient.dna.real_name != original_name)
@@ -301,6 +327,21 @@
 		processing_time -= laser.tier * 10 SECONDS
 		active_power_usage = LASER_POWER_USAGE / processing_time
 		idle_power_usage = active_power_usage / 4
+
+/// Creates new dummy in the nullspace, applies prefs, inserts ai-brain and checks if it's compatible.
+/obj/machinery/self_actualization_device/proc/is_augmented_enough(datum/preferences/player_prefs)
+	var/mob/living/carbon/human/nullspace_dummy = new(null)
+	player_prefs?.apply_prefs_to(nullspace_dummy, icon_updates = FALSE)
+	var/obj/item/organ/brain/cybernetic/ai/dummy_ai_brain = new
+	if(!dummy_ai_brain.Insert(nullspace_dummy, movement_flags = DELETE_IF_REPLACED))
+		QDEL_NULL(dummy_ai_brain)
+		QDEL_NULL(nullspace_dummy)
+		return FALSE
+
+	var/result = dummy_ai_brain.is_sufficiently_augmented()
+	QDEL_NULL(dummy_ai_brain)
+	QDEL_NULL(nullspace_dummy)
+	return result
 
 #undef NO_CONSENT
 #undef CONSENT_GRANTED

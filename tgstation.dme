@@ -7165,6 +7165,8 @@
 #include "modular_nova\modules\aesthetics\walls\code\walls.dm"
 #include "modular_nova\modules\aesthetics\washing_machine\code\washing_machine.dm"
 #include "modular_nova\modules\aesthetics\windows\code\windows.dm"
+#include "modular_nova\modules\ai_uplink_upload\design.dm"
+#include "modular_nova\modules\ai_uplink_upload\megafauna_loot.dm"
 #include "modular_nova\modules\airlock_override\code\airlock_override.dm"
 #include "modular_nova\modules\akula\code\wetsuit.dm"
 #include "modular_nova\modules\alcohol_processing\code\alcohol_processing.dm"
