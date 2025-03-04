@@ -138,9 +138,9 @@
 		audible_message(span_danger("[src] makes a series of sad beeps. Someone has corrupted its software!"))
 		return FALSE
 
-	if(world.time - SSticker.round_start_time > 30 MINUTES && trigger_reason != DIVINE_INTERVENTION)
+	if(world.time - SSticker.round_start_time > 60 MINUTES && trigger_reason != DIVINE_INTERVENTION)
 		playsound(src, 'sound/machines/compiler/compiler-failure.ogg', 100, FALSE, MACHINE_SOUND_RANGE, ignore_walls = TRUE, use_reverb = TRUE, falloff_distance = MACHINE_SOUND_FALLOFF_DISTANCE)
-		audible_message(span_danger("[src] makes a series of sad beeps. The internal charge only lasts about 30 minutes... what a feat of engineering!"))
+		audible_message(span_danger("[src] makes a series of sad beeps. The internal charge only lasts about 60 minutes... what a feat of engineering!"))
 		investigate_log("Delam SCRAM signal was received but failed precondition check. (Round time or trigger reason)", INVESTIGATE_ATMOS)
 		return FALSE
 
@@ -328,9 +328,9 @@
 	COOLDOWN_START(src, scram_button, 15 SECONDS)
 
 	// For roundstart only, after that it's on you!
-	if(world.time - SSticker.round_start_time > 30 MINUTES)
+	if(world.time - SSticker.round_start_time > 60 MINUTES)
 		playsound(src.loc, 'sound/machines/compiler/compiler-failure.ogg', 50, FALSE, BUTTON_SOUND_RANGE, falloff_distance = BUTTON_SOUND_FALLOFF_DISTANCE)
-		audible_message(span_danger("[src] makes a series of sad beeps. The internal charge only lasts about 30 minutes... what a feat of engineering! Looks like it's all on you to save the day."))
+		audible_message(span_danger("[src] makes a series of sad beeps. The internal charge only lasts about 60 minutes... what a feat of engineering! Looks like it's all on you to save the day."))
 		burn_out()
 		return
 
