@@ -14,6 +14,19 @@
 	/// Typepath of the original object for ui grouping
 	var/path
 
+// NOVA EDIT ADDITION START - DEBUGGING
+	var/item_string
+	var/item_loc_string
+	var/icon_state_string
+	var/name_string
+	var/path_string
+
+/datum/search_object/dump_harddel_info()
+	if(harddel_deets_dumped)
+		return
+	harddel_deets_dumped = TRUE
+	return "item: [item]([item_string]) loc: [item_loc_string] name: [name_string] icon_state: [icon_state_string] path: [path_string]"
+// NOVA EDIT ADDITION END
 
 /datum/search_object/New(client/owner, atom/item)
 	. = ..()
@@ -34,6 +47,14 @@
 			COMSIG_MOVABLE_MOVED,
 			COMSIG_QDELETING,
 			), PROC_REF(on_item_moved))
+
+	// NOVA EDIT ADDITION START - DEBUGGING
+	item_string = "[item]"
+	item_loc_string = "[item?.loc]"
+	icon_state_string = "[icon_state]"
+	name_string = "[name]"
+	path_string = "[path]"
+	// NOVA EDIT ADDITION END
 
 	// Icon generation conditions //////////////
 	// Condition 1: Icon is complex
