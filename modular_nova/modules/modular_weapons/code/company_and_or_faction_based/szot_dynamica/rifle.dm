@@ -31,7 +31,7 @@
 
 	accepted_magazine_type = /obj/item/ammo_box/magazine/miecz
 
-	fire_sound = 'modular_nova/modules/modular_weapons/sounds/battle_rifle.ogg'
+	fire_sound = 'modular_nova/modules/modular_weapons/sounds/csgo_ak_shoot.ogg'
 	can_suppress = TRUE
 	suppressor_x_offset = 5
 	suppressor_y_offset = 3
