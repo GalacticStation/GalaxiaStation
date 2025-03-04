@@ -1,0 +1,27 @@
+{
+	"tarkon_recolor": [
+		{
+			"type": "icon_state",
+			"icon_state": "tarkon_reco_1",
+			"blend_mode": "overlay",
+			"color_ids": [ 1 ]
+		},
+		{
+			"type": "icon_state",
+			"icon_state": "tarkon_reco_2",
+			"blend_mode": "overlay"
+		}
+	],	"tarkon_recolor_d": [
+		{
+			"type": "icon_state",
+			"icon_state": "tarkon_reco_1",
+			"blend_mode": "overlay",
+			"color_ids": [ 1 ]
+		},
+		{
+			"type": "icon_state",
+			"icon_state": "tarkon_reco_2",
+			"blend_mode": "overlay"
+		}
+	]
+}

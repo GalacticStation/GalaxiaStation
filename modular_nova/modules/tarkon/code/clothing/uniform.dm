@@ -7,38 +7,47 @@
 	icon_state = "tarkon"
 	body_parts_covered = CHEST|ARMS|GROIN|LEGS
 	armor_type = /datum/armor/clothing_under/tarkon
+	greyscale_config = /datum/greyscale_config/tarkonuniform
+	greyscale_config_worn = /datum/greyscale_config/tarkonuniform/worn
+	greyscale_config_worn_digi = /datum/greyscale_config/tarkonuniform/worn/digi
 
 /obj/item/clothing/under/tarkon/cargo
 	name = "tarkon cargo uniform"
 	desc = "A uniform worn by cargo-ranked crew, provided by Tarkon Industries."
-	icon_state = "tarkon_cargo"
+	icon_state = "tarkon_recolor"
+	greyscale_colors = "#B7793D#ffffff"
 
 /obj/item/clothing/under/tarkon/sci
 	name = "tarkon research uniform"
 	desc = "A uniform worn by research-ranked crew, provided by Tarkon Industries."
-	icon_state = "tarkon_sci"
+	icon_state = "tarkon_recolor"
+	greyscale_colors = "#9E00EA#ffffff"
 
 /obj/item/clothing/under/tarkon/sec
 	name = "tarkon guard uniform"
 	desc = "A uniform worn by security-ranked crew, provided by Tarkon Industries."
-	icon_state = "tarkon_sec"
+	icon_state = "tarkon_recolor"
 	armor_type = /datum/armor/clothing_under/tarkon
+	greyscale_colors = "#B72B2F#ffffff"
 
 /obj/item/clothing/under/tarkon/med
 	name = "tarkon medical uniform"
 	desc = "A uniform worn by medical-ranked crew, provided by Tarkon Industries."
-	icon_state = "tarkon_med"
+	icon_state = "tarkon_recolor"
+	greyscale_colors = "#85C1E6#ffffff"
 
 /obj/item/clothing/under/tarkon/eng
 	name = "tarkon maintenance uniform"
 	desc = "A uniform worn by maintenance-ranked crew, provided by Tarkon Industries."
-	icon_state = "tarkon_engi"
+	icon_state = "tarkon_recolor"
+	greyscale_colors = "#ff9900#ffffff"
 
 /obj/item/clothing/under/tarkon/com
 	name = "tarkon command uniform"
 	desc = "A uniform worn by command-ranked crew, provided by Tarkon Industries."
-	icon_state = "tarkon_com"
+	icon_state = "tarkon_recolor"
 	armor_type = /datum/armor/clothing_under/tarkon
+	greyscale_colors = "#3F6E9E#ffffff"
 
 /datum/armor/clothing_under/tarkon
 	melee = 10
