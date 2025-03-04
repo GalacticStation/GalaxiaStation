@@ -340,6 +340,7 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 	//and it would suck if the pool of bottle messages were constantly being emptied by explosive fishing.
 	if(from_explosion)
 		table -= /obj/effect/spawner/message_in_a_bottle
+		table -= fish_counts // NOVA EDIT ADDITION - avoids explosions to get rare stuff. Fish for it!
 	for(var/result in table)
 		if(!isnull(fish_counts[result]) && fish_counts[result] <= 0)
 			table -= result
@@ -366,6 +367,9 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 	if(HAS_TRAIT(rod, TRAIT_ROD_REMOVE_FISHING_DUD))
 		final_table -= FISHING_DUD
 
+	if(!fisherman.client) // NOVA EDIT ADDITION
+		final_table -= fish_counts // NOVA EDIT ADDITION - avoids npc's to get rare stuff. Fish for it!
+		final_table -= /obj/effect/spawner/message_in_a_bottle // NOVA EDIT ADDITION - avoids npc's to get messages in a bottle. Fish for them!
 	for(var/result in final_table)
 		final_table[result] *= rod.hook.get_hook_bonus_multiplicative(result)
 		final_table[result] += rod.hook.get_hook_bonus_additive(result)//Decide on order here so it can be multiplicative
