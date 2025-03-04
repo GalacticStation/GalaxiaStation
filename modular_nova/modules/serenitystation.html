@@ -1,0 +1,50 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><base href="../../"><link rel="stylesheet" href="dmdoc.css"><title>modular_nova/modules/serenitystation/readme.md - /tg/ Station 13</title></head><body><header><a href="index.html">/tg/ Station 13</a> - <a href="index.html#modules">Modules</a> - <a href="index.html#types">Types</a></header><main><h1>modular_nova/modules/serenitystation/readme.md <a href="https://github.com/NovaSector/NovaSector/blob/d3fff2dfef43ae61ea13f17e036c5b4b13796b94/modular_nova/modules/serenitystation/readme.md0"><img src="git.png" width="16" height="16" title="modular_nova/modules/serenitystation/readme.md0"></a></h1><table class="summary" cellspacing="0"><tr><td colspan="2"><h2 id="title-serenitystation">Title: SerenityStation</h2>
+<p>MODULE ID: SERENITYSTATION</p>
+<h3 id="description">Description:</h3>
+<p>A nova-specific map featuring a station located on a forest planet. The forest planet has underground caves filled with mushrooms, and underground cold liquid plasma springs bubbling to the surface.</p>
+<p>This includes 3 z-levels: the underground mushroom level; the surface forest level; and a space level that has a small orbital station and linkage to other space z levels.</p>
+<p>This station features a custom shuttle to go between the orbital and planetary shuttle, though the public mining shuttle can also go between them (with 3 docking options now: planetary dock, orbital dock and lavaland).</p>
+<p>There are custom mushroom tree, mushroom floor, mushroom flora, stillcap and megadeer sprites for this map. The megadeer is more or less a reskinned wolf and drops a reskinned wolf crusher trophy. The stillcap is a basic mob that hides as a mushroom when a target is not nearby.</p>
+<p>There are two main cave generation types: the surface, which functions as normal cave generation such as icebox, and the lower mushroom level which uses biome generation to mix in three different biomes (red, blue and green)</p>
+<p>The mushroom floor and liquid plasma sprites were cut using the icon cutter; I included the .png and .toml files needed for the cutter if that sprite gets edited.
+To rerun the cutting tool move the relevant .dmi .png and .png.toml files to the \icons\turf\floors file and rerun the icon cutter, as it checks that non-modular folder for them.</p>
+<h3 id="tg-proc-file-changes">TG Proc/File Changes:</h3>
+<ul>
+<li>_maps/_basemap.dm -&gt; adds SerenityStation.dmm to the map file includes</li>
+<li>code/datums/ai/basic_mobs/basic_ai_behaviors/targeting.dm -&gt; removes aggro_range in /datum/ai_behavior/find_potential_targets</li>
+<li>code/datums/map_config.dm -&gt; added reading &quot;allow_space_when_planetary&quot; from the config json</li>
+<li>code/game/structures/flora.dm -&gt; added variable tree stump types</li>
+<li>code/modules/unit_tests/mapload_space_verification -&gt; made to check if planetary map allows space from the config</li>
+<li>config/maps.txt -&gt; adds SerenityStation to the map config</li>
+<li>tgstation.dme -&gt; adds new modular files to the includes</li>
+</ul>
+<h3 id="modular-file-changes">Modular File Changes:</h3>
+<ul>
+<li>modular_nova/modules/aesthetics/floors/icons/floors.dmi -&gt; added mushroom turf icon</li>
+<li>modular_nova/modules/automapper/code/area_spawn_subsystem.dm -&gt; added SerenityStation to the automapper's blacklisted stations</li>
+<li>modular_nova/modules/mapping/code/areas/shuttles.dm -&gt; added the area for the planetary_ferry</li>
+<li>modular_nova/modules/mapping/code/areas/station.dm -&gt; added the areas used in the station (as these might be reused in mapping; forest-related areas are in the module's folder)</li>
+<li>modular_nova/modules/mapping/code/shuttles.dm -&gt; added map_template and computer for the planetary feery</li>
+<li>modular_nova/modules/mapping/code/vgdecals.dm -&gt; added BZ floor decals</li>
+<li>modular_nova/modules/mapping/icons/areas/areas_station.dmi -&gt; added icons for new station areas (cargo projects room, orbital areas, cyborg storage)</li>
+<li>modular_nova/modules/mapping/icons/turf/decals/vgstation_decals.dmi -&gt; added BZ floor decals</li>
+<li>modular_nova/master_files/sound/ambience/mushroom -&gt; Added ambience tracks for the Mushroom Caves.</li>
+<li>modular_nova/master_files/sound/ambience/forest -&gt; Added ambience tracks for the forest.</li>
+</ul>
+<h3 id="defines">Defines:</h3>
+<ul>
+<li>code/__DEFINES/icon_smoothing.dm -&gt; SMOOTH_GROUP_MUSHROOM</li>
+<li>code/__DEFINES/~nova_defines/atmospherics.dm -&gt; FOREST_DEFAULT_ATMOS</li>
+</ul>
+<h3 id="included-files-that-are-not-contained-in-this-module">Included files that are not contained in this module:</h3>
+<ul>
+<li>modular_nova/master_files/code/controllers/subsystem/mapping.dm -&gt; added proc to return is_planetary_with_space maps</li>
+<li>_maps/map_files/SerenityStation/SerenityStation.dmm</li>
+<li>_maps/serenitystation.json</li>
+<li>_maps/shuttles/nova/planetary_planetary_ferry.dmm</li>
+<li>code/__DEFINES/~nova_defines/atmospherics.dm</li>
+</ul>
+<h3 id="credits">Credits:</h3>
+<p>Credits to SableSteel (sable.steel on Discord, thlumyn on Github) for the map and sprites
+Credits to GoldenAlpharex for the biome generation and other code
+Credits to rick hick/tommy for all of the amazing ambience tracks that are found in modular_nova/master_files/sound/ambience/mushroom and /forest!</p></td></tr></table></main><footer>tgstation.dme <a href="https://github.com/NovaSector/NovaSector/tree/d3fff2dfef43ae61ea13f17e036c5b4b13796b94">d3fff2d</a> (master) — <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.9.0</a></footer></body></html>

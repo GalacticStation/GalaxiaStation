@@ -1,0 +1,28 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><base href="../../"><link rel="stylesheet" href="dmdoc.css"><title>modular_nova/modules/antag_opt_in/readme.md - /tg/ Station 13</title></head><body><header><a href="index.html">/tg/ Station 13</a> - <a href="index.html#modules">Modules</a> - <a href="index.html#types">Types</a></header><main><h1>modular_nova/modules/antag_opt_in/readme.md <a href="https://github.com/NovaSector/NovaSector/blob/d3fff2dfef43ae61ea13f17e036c5b4b13796b94/modular_nova/modules/antag_opt_in/readme.md0"><img src="git.png" width="16" height="16" title="modular_nova/modules/antag_opt_in/readme.md0"></a></h1><table class="summary" cellspacing="0"><tr><td colspan="2"><p>https://github.com/NovaSector/NovaSector/pull/121</p>
+<h2 id="title-antagonist-opt-in">&lt;Title Antagonist Opt In&gt;</h2>
+<p>Module ID: ANTAG_OPTIN</p>
+<h3 id="description">Description:</h3>
+<p>Adds functionality to allow players to 'opt-in' to being an antagonist's mechanical target, with three different levels of involvement - being temporarily inconvenienced, killed, and round removed. Command roles &amp; security are automatically opted-in to at least 'KILL' level. Additionally, contractor &amp; heretic have their objectives adjusted to only have command staff &amp; security as their targets</p>
+<h3 id="tg-proc-file-changes">TG Proc/File Changes:</h3>
+<ul>
+<li>Changes in several antag files (will list later)</li>
+<li>examine_tgui.dm (Adds opt in info to OOC examine info)</li>
+<li>objective.dm (target selection stuff)</li>
+</ul>
+<h3 id="modular-overrides">Modular Overrides:</h3>
+<ul>
+<li>N/A</li>
+</ul>
+<h3 id="defines">Defines:</h3>
+<ul>
+<li>antag_opt_in - lives in ~nova_defines located in __DEFINES folder. Defines named OPT_IN_YES_KILL, OPT_IN_YES_TEMP, OPT_IN_YES_ROUND_REMOVE, and OPT_IN_OPT_IN_NOT_TARGET - used for managing opt in stuff.</li>
+</ul>
+<h3 id="included-files-that-are-not-contained-in-this-module">Included files that are not contained in this module:</h3>
+<ul>
+<li>tgui\packages\tgui\interfaces\PreferencesMenu\preferences\features\character_preferences\nova\antag_optin.tsx</li>
+</ul>
+<h3 id="credits">Credits:</h3>
+<ul>
+<li>niko - for doing stuff and taking over</li>
+<li>plum - the original author</li>
+</ul></td></tr></table></main><footer>tgstation.dme <a href="https://github.com/NovaSector/NovaSector/tree/d3fff2dfef43ae61ea13f17e036c5b4b13796b94">d3fff2d</a> (master) — <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.9.0</a></footer></body></html>

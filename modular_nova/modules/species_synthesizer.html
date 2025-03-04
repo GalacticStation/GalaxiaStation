@@ -1,0 +1,26 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><base href="../../"><link rel="stylesheet" href="dmdoc.css"><title>modular_nova/modules/species_synthesizer/README.md - /tg/ Station 13</title></head><body><header><a href="index.html">/tg/ Station 13</a> - <a href="index.html#modules">Modules</a> - <a href="index.html#types">Types</a></header><main><h1>modular_nova/modules/species_synthesizer/README.md <a href="https://github.com/NovaSector/NovaSector/blob/d3fff2dfef43ae61ea13f17e036c5b4b13796b94/modular_nova/modules/species_synthesizer/README.md0"><img src="git.png" width="16" height="16" title="modular_nova/modules/species_synthesizer/README.md0"></a></h1><table class="summary" cellspacing="0"><tr><td colspan="2"><p>https://github.com/NovaSector/NovaSector/pull/4531</p>
+<h2 id="title-all-the-emotes">Title: All the emotes.</h2>
+<p>MODULE ID: species_synthesizer</p>
+<h3 id="description">Description:</h3>
+<p>Adds an action to Synthetic and Ethereal species that allows them to synthesize music.</p>
+<ul>
+<li>Added to <code>modular_nova/modules/synths/code/species/synthetic.dm</code>:
+<ul>
+<li>Edited <code>/datum/species/synthetic/on_species_gain()</code> to add the action to the mob.</li>
+<li>Added to <code>/datum/species/ethereal/create_pref_unique_perks()</code> to add the &quot;Musical Discharger&quot; species perk.</li>
+</ul>
+</li>
+</ul>
+<h3 id="master-file-additions">Master File Additions</h3>
+<ul>
+<li>Added to <code>modular_nova/master_files/code/modules/mob/living/carbon/human/species_type/ethereal.dm</code>:
+<ul>
+<li>Overrode <code>/datum/species/ethereal/on_species_gain()</code> to add the action to the mob.</li>
+<li>Added to <code>/datum/species/synthetic/create_pref_unique_perks()</code> to add the &quot;Tone Synthesizer&quot; species perk.</li>
+</ul>
+</li>
+</ul>
+<h3 id="credits">Credits:</h3>
+<ul>
+<li><a href="https://github.com/Floofies">@Floofies</a></li>
+</ul></td></tr></table></main><footer>tgstation.dme <a href="https://github.com/NovaSector/NovaSector/tree/d3fff2dfef43ae61ea13f17e036c5b4b13796b94">d3fff2d</a> (master) — <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.9.0</a></footer></body></html>

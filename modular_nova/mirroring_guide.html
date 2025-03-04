@@ -1,0 +1,98 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="dmdoc.css"><title>modular_nova/mirroring_guide.md - /tg/ Station 13</title></head><body><header><a href="index.html">/tg/ Station 13</a> - <a href="index.html#modules">Modules</a> - <a href="index.html#types">Types</a></header><main><h1>Welcome to the guide on how to manually do batch mirrors for the repo <aside>modular_nova/mirroring_guide.md</aside> <a href="https://github.com/NovaSector/NovaSector/blob/d3fff2dfef43ae61ea13f17e036c5b4b13796b94/modular_nova/mirroring_guide.md0"><img src="git.png" width="16" height="16" title="modular_nova/mirroring_guide.md0"></a></h1><table class="summary" cellspacing="0"><tr><td colspan="2"><p>This guide will help you in pulling Pull requests from TG and adding them into a PR to be merged here in Nova.</p>
+<h2 id="do-note-all-of-this-should-be-done-on-a-fork-of-novas-repo-if-you-directly-cloned-the-repo-you-will-not-be-able-to-do-this"><em>DO NOTE ALL OF THIS SHOULD BE DONE ON A FORK OF NOVA's REPO, IF YOU DIRECTLY CLONED THE REPO YOU WILL NOT BE ABLE TO DO THIS</em></h2><h2 id="required-software">Required Software</h2>
+<p><a href="https://git-scm.com/">Git-Scm</a> - This is required to basically do anything Git related. Comes with a commandline that is capable of doing everything. If you would prefer to use a GUI, you will want to use Fork or a combination of commandline + Github Desktop (see below). Git does come with a rather basic barebones GUI out of the box but that will not be covered here.</p>
+<h3 id="optional"><em>(Optional)</em></h3>
+<p><a href="https://git-fork.com/">Git-Fork</a> - A really good GUI client, will be used is the second part of the tutorial for the faster method of doing the mirroring, It has a useful GUI, the only downside is it costs money, which is a one time payment fee, whereas the commandline is free just slower.</p>
+<p><a href="https://desktop.github.com/download/">Github Desktop</a> - Decent GUI client, though doesn't handle doing cherry picking from across different repos. You will need to use a combination of this and the commandline, but with practice it becomes nearly as fast as using Fork honestly. It is very helpful for visualizing branch managment and also testing out Pull Requests (making it easy to switch to their branches).</p>
+<h2 id="getting-started">Getting started</h2>
+<p>Start by opening the git bash and navigating to your repo directory.</p>
+<ul>
+<li>(use <code>cd name_of_folder</code> to navigate, you can use tab for autocomplete to make it go faster). When you arrive in the right place it should look something like this. <img src="https://github.com/user-attachments/assets/97532c25-fce0-43da-a451-32ce7195fa19" alt="image" /> My current branch is 'Guide' so that's why it says '(Guide)'.</li>
+</ul>
+<p>Once in there, add tgstation as a remote if you do not already have that done on your fork. Simply run the following command:</p>
+<p><code>git remote add tgstation https://github.com/tgstation/tgstation</code></p>
+<p>This will ad TG's repo as a remote under the name of tgstation. <strong>You only need to do this step once.</strong></p>
+<p>From here we need to <a href="https://git-scm.com/docs/git-fetch">fetch</a> the repo to actually get the refs. Simply run the following command:</p>
+<p><code>git fetch tgstation</code></p>
+<p>This will simply grab an up to date set of refs that make up the history of the repo. It wont download the actual files, but it will update the history so you are able to cherry pick the most recent commits from TG. <strong>You will generally want do do this every time you make a mirror.</strong></p>
+<h2 id="command-line">Command-line</h2>
+<p>This portion will teach you how to do everything through the command-line, which for some people is the fastest and easiest way. If you prefer to use a GUI, <a href="#gui-guide-using-git-fork">skip</a> to the next section.</p>
+<h3 id="create-and-checkout-a-branch">Create and checkout a branch</h3>
+<p>Now, before you do anything else, as always with opening any PR it is important that you open a new branch! The command below will create a new branch called 'manual-mirror-1' and swap to it automatically. The name is not important at all, you can call it whatever you want.</p>
+<p><code>git checkout -b manual-mirror-1</code></p>
+<h3 id="publish-this-branch-to-your-remote">Publish this branch to your remote</h3>
+<p>While we are at it, let's take a moment to publish the branch so that it appears on your remote as well. Since as of now it's just a local branch, and you will need it to be on the remote in order to open a pull request. Simply run the following:</p>
+<p><code>git push -u origin HEAD</code></p>
+<h3 id="finding-the-commit-hash">Finding the commit hash</h3>
+<p>Next up you need to find the hash(es) of the merge commit(s) of the PR(s) that you are trying to mirror. There are a few ways of doing this but here is a simple way that requires no additional software:</p>
+<p>Using this Pull Request as an <a href="https://github.com/tgstation/tgstation/pull/85448">Example</a></p>
+<p>You would want to scroll down to the bottom of the page and look for the merge commit. It would look like this:</p>
+<p><img src="http://files.byondhome.com/SomeRandomOwl/firefox_mkROS7ApgD.png" alt="Screenshot" /></p>
+<h3 id="singular-commit-cherry-pick">Singular commit cherry pick</h3>
+<ol>
+<li>
+<p>Simply click on the abbreviated hash link (the <code>281dac4</code> shown in the example above), and in the url address bar copy full version of the hash just after /commit/
+In this example it should be <code>281dac4ed0e2976cdecb4777c93a19bc9b787db4</code></p>
+</li>
+<li>
+<p>To grab this singular commit, assuming the previous steps have been completed you would just need to run the following command:
+<code>git cherry-pick -m 1 281dac4ed0e2976cdecb4777c93a19bc9b787db4</code></p>
+</li>
+</ol>
+<p><strong>That is for a singular commit</strong>. To do a range of commits, you need to find a second hash. Repeat step 1) to find a second commit (See below for example)</p>
+<h3 id="doing-a-range-of-commits-as-a-cherry-pick">Doing a range of commits as a cherry pick</h3>
+<p>For example, let's look for the Automatic Changelog commit from that same PR.
+It is highly recommended to grab this because it will keep the author's name from TG instead of just putting yours in the changelog.
+<strong>If you are doing more than one PR at a time, you -must- include the Autochangelogs.</strong></p>
+<p><img src="http://files.byondhome.com/SomeRandomOwl/firefox_OfwBeopgiw.png" alt="Screenshot" /></p>
+<p>On that you can click on the words automatic changelog or the random hash at the far right, both works.
+In this example the hash for the changelog is this. <code>66bc14224557ad041d4a146cf1bb079994740787</code></p>
+<p>Now that you have both the starting and ending commit hashes, simply run the following command to grab these commits and everything in between:</p>
+<p><code>git cherry-pick A^..B</code> where A is the start of the range, aka, in our case:</p>
+<p><code>git cherry-pick -m 1 281dac4ed0e2976cdecb4777c93a19bc9b787db4^..66bc14224557ad041d4a146cf1bb079994740787</code></p>
+<p><strong>NOTE: The <em>first</em> hash in the command -must- be the oldest commit, or else the command will just silently fail.</strong>
+The <code>^</code> is also important, omitting that will cause commit <code>A</code> to be not included itself. Which for our purposes you don't generally want.</p>
+<h3 id="pushing-the-changes-to-your-remote">Pushing the changes to your remote</h3>
+<p>Once you have done this, if it goes through smoothly you will be done. Run the following command to push the changes to remote.</p>
+<p><code>git push</code></p>
+<h3 id="what-if-i-dont-want-all-the-commits-in-the-range">What if I don't want all the commits in the range?</h3>
+<p>This is where <code>git rebase</code> comes in. Let's say you have a few commits that you grabbed in a range, and you want to get rid of some that were in the middle. These might be Autochangelog compiles that we don't need, or whatever.</p>
+<p><code>git rebase -i HEAD~10</code></p>
+<p>Running this command will open the interactive rebase text file, which has a list of commits prefaced by <code>pick</code>
+<img src="https://github.com/user-attachments/assets/078d9f8e-df07-49fd-9e53-ae298f7f7804" alt="notepad++_xuDB6Uymt4" /></p>
+<p>Any commits that you want to get rid of, simply replace <code>pick</code> with <code>drop</code>, then save + close the file. Those commits should now be gone!</p>
+<p>From there do a force push to update your remote before opening your PR:</p>
+<p><code>git push -f</code></p>
+<h3 id="what-if-there-are-merge-conflicts">What if there are merge conflicts?</h3>
+<p>Oftentimes things will not go smoothly and there will be a merge conflict. In those cases you'll need to resolve them manually.</p>
+<p>There are many online guides for this, <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/resolving-a-merge-conflict-on-github">such as this one</a>, but a tip if you use VSC: one of the easiest ways to find the conflicts is to just do a search for <code>&lt;&lt;&lt;</code> (the merge conflict marker). The exception here is if it's a conflict of a missing file or modified .dmi which will require you to choose which version of the file to keep. When this happens and you are unsure how to proceed you can just grab a the version of the file from TG and copy paste it in.</p>
+<h3 id="opening-the-pull-request">Opening the pull request</h3>
+<p>Now you are ready to open your <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request">pull request</a>! You can either visit github and open your fork on the website and go through the process of making a Pull Request, or use the github desktop app which has a button to take you directly to making a Pull request. Fork also has this option in the left hand pane if you right click NovaSector master branch.</p>
+<p>If you have included the Autochangelogs from TG (highly recommended), please do not include a changelog in the PR body.</p>
+<p>Otherwise, if it is a singular mirror please link the original TG PR in the body of the pull request. If it is a batch you do not have to bother with this.
+Again, <strong>If you include Autochangelog commits please do not include a changelog as this will result in doubled up changelog entries.</strong></p>
+<h2 id="gui-guide-using-git-fork">GUI Guide using Git-Fork</h2>
+<p>This next portion of the guide is basically the above but using Git-Fork which helps the process of pulling multiple PR's into a new Pull Request for Nova.
+It basically provides a visualization for the list of commits in order and lets you select them via shift/ctrl click rather than having to find commit hashes and rebases.
+It is as such faster once you get the hang of it, so this is a recommended way of doing it if you plan on doing it often. It is absolutely not necessary though!</p>
+<p>Open up Git-fork, and using open up the directory containing your cloned fork (or clone your fork if you dont have it already cloned)</p>
+<p>On the left side panel there should be a list that has all of the repo's remotes, right click on it and click on add new remote.
+From there, name the remote as you want I.E. 'tgstation' and for the repository URL put <code>https://github.com/tgstation/tgstation</code></p>
+<p><img src="http://files.byondhome.com/SomeRandomOwl/Fork_oqKYvSerNP.png" alt="Screenshot" />
+<img src="http://files.byondhome.com/SomeRandomOwl/Fork_F2LtlwBlFA.png" alt="Screenshot2" /></p>
+<p>From there just click on add new remote.</p>
+<p>Now to to make the PR pulling changes from TG.
+Create a new branch using either the Repository dropdown on the title bar -&gt; New Branch. Or use the hotkey <code>Ctrl+shift+b</code> and name the branch whatever you want.</p>
+<p>From here it is super simple to add in the the Pull requests from TG you wish to add to your pull request to merge into Nova.
+On the side panel where it lists remotes, click on the filter button with the tooltip <code>show branches from here only</code>
+<strong>It is recommended to pin the tgstation master branch to the left panel so you can easily click the filter button (to the right of the pin button) when you need to. Clear branch filter is Ctrl+Shift+A, use this to quickly swap between tg's commits and your own branches</strong>
+<img src="https://github.com/user-attachments/assets/233baa7e-7615-4c5e-ba45-0c59e5045654" alt="image" /></p>
+<p><img src="http://files.byondhome.com/SomeRandomOwl/Fork_8L4ULsFpcP.png" alt="Screenshot" /></p>
+<p>And then from the main view, simply hold Ctrl and click on the PR + its changelog for each and every Pull Request you wish to copy over to Nova. Right click on one and then click on 'Cherry-pick...' and then click 'Cherry Pick <code>n</code> commits' on the resulting dialog.</p>
+<p><img src="http://files.byondhome.com/SomeRandomOwl/Fork_ElARfHdxH1.png" alt="Screenshot" />
+<img src="http://files.byondhome.com/SomeRandomOwl/Fork_08HRCEw9cF.png" alt="Screenshot2" /></p>
+<p>Then from there, you can simply push changes and either fix any conflicts or errors, and then use Fork, Github Desktop, or go to github to make your Pull Request to NovaSector.</p>
+<p>On your downstream repo if you are merging a Mirror/batch Pull Request that contains multiple commits it is recommended to use the &quot;Create a Merge Commit&quot;, aka &quot;Merge Pull Request&quot; option instead of &quot;Squash and Merge&quot;, to preserve the commit history.</p>
+<p><img src="https://github.com/user-attachments/assets/0f4786d6-ba17-4529-87e0-d8ca87dee321" alt="418799841-a0ede384-d3d9-462f-a41f-4108734bb894" /></p>
+<p><img src="https://github.com/user-attachments/assets/bef06860-1c7b-4057-affa-99f37b5e0630" alt="418800033-39a658d0-d85b-454b-945d-8e77d6b032a9" /></p>
+<p>(Note: the &quot;Rebase and Merge&quot; option may also be used, at your own preference. Both will keep the commit history intact but have their own advantages/disadvantages. We exclusively use Merge commits here on Nova).</p></td></tr></table></main><footer>tgstation.dme <a href="https://github.com/NovaSector/NovaSector/tree/d3fff2dfef43ae61ea13f17e036c5b4b13796b94">d3fff2d</a> (master) — <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.9.0</a></footer></body></html>
