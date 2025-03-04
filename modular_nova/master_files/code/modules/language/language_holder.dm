@@ -125,5 +125,5 @@ GLOBAL_DATUM_INIT(language_holder_adjustor, /datum/language_holder_adjustor, new
 	)
 
 /datum/language_holder/drone_nova
-	understood_languages = list(/datum/language/drone = list(LANGUAGE_ATOM), /datum/language/common = list(LANGUAGE_ATOM))
-	spoken_languages = list(/datum/language/drone = list(LANGUAGE_ATOM))
+	understood_languages = list(/datum/language/machine = list(LANGUAGE_ATOM), /datum/language/common = list(LANGUAGE_ATOM))
+	spoken_languages = list(/datum/language/machine = list(LANGUAGE_ATOM))

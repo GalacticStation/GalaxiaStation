@@ -76,10 +76,12 @@
 	mode = MODE_BINARY
 
 /datum/saymode/binary/handle_message(mob/living/user, message, datum/language/language)
+	/* //NOVA EDIT REMOVAL BEGIN - Drones speaking Robot instead of drone talk
 	if(isdrone(user))
 		var/mob/living/basic/drone/drone_user = user
 		drone_user.drone_chat(message)
 		return FALSE
+	*/ //NOVA EDIT REMOVAL END
 	if(user.binarycheck())
 		user.robot_talk(message)
 		return FALSE

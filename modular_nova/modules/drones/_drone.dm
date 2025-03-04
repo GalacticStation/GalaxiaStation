@@ -13,3 +13,9 @@
 	"<span class='warning'>Please keep these rules in mind, failing to do so can lead to a ban.</span>\n"+\
 	"<span class='warning'><u>If you do not have the regular drone laws, follow your laws to the best of your ability.</u></span>\n"+\
 	"<span class='notice'>Prefix your message with :b to speak in Drone Chat.</span>\n"
+
+/mob/living/basic/drone/binarycheck()
+	var/area/our_area = get_area(src)
+	if(our_area.area_flags & BINARY_JAMMING)
+		return FALSE
+	return TRUE
