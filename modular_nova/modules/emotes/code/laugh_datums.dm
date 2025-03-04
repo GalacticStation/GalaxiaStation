@@ -26,13 +26,8 @@ GLOBAL_LIST_EMPTY(laugh_types)
 	female_laughsounds = null
 
 /datum/laugh_type/moth
-	name = "Moth Laugh"
-	male_laughsounds = list('modular_nova/modules/emotes/sound/emotes/mothlaugh.ogg')
-	female_laughsounds = null
-
-/datum/laugh_type/insect
-	name = "Insect Laugh"
-	male_laughsounds = list('modular_nova/modules/emotes/sound/emotes/mothlaugh.ogg')
+	name = "Moth/Insect Laugh"
+	male_laughsounds = list('sound/mobs/humanoids/moth/moth_laugh1.ogg')
 	female_laughsounds = null
 
 /datum/laugh_type/lizard

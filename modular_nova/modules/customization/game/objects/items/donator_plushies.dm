@@ -723,7 +723,7 @@
 		"detain",
 		"taze",
 		)
-	squeak_override = list('modular_nova/modules/emotes/sound/emotes/female/female_sneeze.ogg' = 1)
+	squeak_override = list('sound/mobs/humanoids/human/sneeze/female_sneeze1.ogg' = 1)
 
 /obj/item/toy/plush/nova/donator/xixi
 	name = "familiar looking harpy plushie"
@@ -925,9 +925,9 @@
 		"smoke",
 		)
 	squeak_override = list(
-		'modular_nova/modules/emotes/sound/emotes/female/female_cough_3.ogg' = 1,
-		'modular_nova/modules/emotes/sound/emotes/female/female_cough_2.ogg' = 1,
-		'modular_nova/modules/emotes/sound/emotes/female/female_cough_1.ogg' = 1,
+		'sound/mobs/humanoids/human/cough/female_cough1.ogg' = 1,
+		'sound/mobs/humanoids/human/cough/female_cough2.ogg' = 1,
+		'sound/mobs/humanoids/human/cough/female_cough3.ogg' = 1,
 		)
 	responses = list(
 		"The human body can survive three weeks without skiiiiiiiiiiin.",
