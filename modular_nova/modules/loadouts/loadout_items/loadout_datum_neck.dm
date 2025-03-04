@@ -308,6 +308,11 @@
 	name = "Security Cape"
 	item_path = /obj/item/clothing/neck/security_cape
 
+/datum/loadout_item/neck/security_gauntlet
+	name = "Security Gauntlet"
+	item_path = /obj/item/clothing/neck/security_cape/armplate
+	restricted_roles = list(JOB_WARDEN, JOB_DETECTIVE, JOB_SECURITY_OFFICER, JOB_HEAD_OF_SECURITY, JOB_CORRECTIONS_OFFICER)
+
 /*
 *	DONATOR
 */

@@ -680,6 +680,41 @@
 	item_path = /obj/item/clothing/suit/armor/vest/peacekeeper/jacket
 	restricted_roles = list(JOB_WARDEN, JOB_DETECTIVE, JOB_SECURITY_OFFICER, JOB_HEAD_OF_SECURITY, JOB_CORRECTIONS_OFFICER)
 
+/datum/loadout_item/suit/peacekeeper_jacket_badge
+	name = "Badged Peacekeeper Jacket"
+	item_path = /obj/item/clothing/suit/armor/vest/peacekeeper/jacket/badge
+	restricted_roles = list(JOB_WARDEN, JOB_DETECTIVE, JOB_SECURITY_OFFICER, JOB_HEAD_OF_SECURITY, JOB_CORRECTIONS_OFFICER)
+
+/datum/loadout_item/suit/peacekeeper_wintercoat
+	name = "Security Wintercoat"
+	item_path = /obj/item/clothing/suit/hooded/wintercoat/security
+	restricted_roles = list(JOB_WARDEN, JOB_DETECTIVE, JOB_SECURITY_OFFICER, JOB_HEAD_OF_SECURITY, JOB_CORRECTIONS_OFFICER)
+
+/datum/loadout_item/suit/detjacket
+	name = "Detective Jacket (dark)"
+	item_path = /obj/item/clothing/suit/jacket/det_suit/dark
+	restricted_roles = list(JOB_DETECTIVE)
+
+/datum/loadout_item/suit/detjackenoir
+	name = "Detective Jacket (noir)"
+	item_path = /obj/item/clothing/suit/jacket/det_suit/noir
+	restricted_roles = list(JOB_DETECTIVE)
+
+/datum/loadout_item/suit/detjacketbrown
+	name = "Detective's Brown Jacket"
+	item_path = /obj/item/clothing/suit/jacket/det_suit/brown 
+	restricted_roles = list(JOB_DETECTIVE)
+
+/datum/loadout_item/suit/detjacketplain
+	name = "Detective's Jacket"
+	item_path = /obj/item/clothing/suit/jacket/det_suit
+	restricted_roles = list(JOB_DETECTIVE)
+
+/datum/loadout_item/suit/detectivearmorvest
+	name = "Detective's Armor Vest"
+	item_path = /obj/item/clothing/suit/armor/vest/det_suit
+	restricted_roles = list(JOB_DETECTIVE)
+
 /datum/loadout_item/suit/peacekeeper_jacket/badge
 	name = "Badged Peacekeeper Jacket"
 	item_path = /obj/item/clothing/suit/armor/vest/peacekeeper/jacket/badge
