@@ -11,6 +11,15 @@
 	message = null
 	mob_type_blacklist_typecache = list(/mob/living/brain)
 
+/datum/config_entry/flag/play_subtler_sound
+	default = TRUE
+
+/datum/preference/toggle/subtler_sound
+	savefile_key = "subtler_sound"
+	savefile_identifier = PREFERENCE_PLAYER
+	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
+	default_value = TRUE
+
 /datum/emote/living/subtle/run_emote(mob/user, params, type_override = null)
 	if(!can_run_emote(user))
 		to_chat(user, span_warning("You can't emote at this time."))
@@ -141,12 +150,18 @@
 		var/obj/effect/overlay/holo_pad_hologram/hologram = GLOB.hologram_impersonators[user]
 		if((get_dist(user.loc, target_mob.loc) <= subtler_range) || (hologram && get_dist(hologram.loc, target_mob.loc) <= subtler_range))
 			target_mob.show_message(subtler_message, alt_msg = subtler_message)
+			var/datum/preferences/prefs = target_mob.client?.prefs
+			if(prefs && prefs.read_preference(/datum/preference/toggle/subtler_sound))
+				target_mob.playsound_local(get_turf(target_mob), 'sound/effects/achievement/glockenspiel_ping.ogg', 50)
 		else
 			to_chat(user, span_warning("Your emote was unable to be sent to your target: Too far away."))
 	else if(istype(target, /obj/effect/overlay/holo_pad_hologram))
 		var/obj/effect/overlay/holo_pad_hologram/hologram = target
 		if(hologram.Impersonation?.client)
 			hologram.Impersonation.show_message(subtler_message, alt_msg = subtler_message)
+			var/datum/preferences/prefs = hologram.Impersonation.client?.prefs
+			if(prefs && prefs.read_preference(/datum/preference/toggle/subtler_sound))
+				hologram.Impersonation.playsound_local(get_turf(hologram.Impersonation), 'sound/effects/achievement/glockenspiel_ping.ogg', 50)
 	else
 		var/ghostless = get_hearers_in_view(target, user) - GLOB.dead_mob_list
 
@@ -160,6 +175,9 @@
 
 		for(var/mob/receiver in ghostless)
 			receiver.show_message(subtler_message, alt_msg = subtler_message)
+			var/datum/preferences/prefs = receiver.client?.prefs
+			if(prefs && prefs.read_preference(/datum/preference/toggle/subtler_sound))
+				receiver.playsound_local(get_turf(receiver), 'sound/effects/achievement/glockenspiel_ping.ogg', 50)
 
 	return TRUE
 

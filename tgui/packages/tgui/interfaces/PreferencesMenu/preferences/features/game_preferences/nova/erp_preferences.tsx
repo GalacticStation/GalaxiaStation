@@ -23,6 +23,13 @@ export const erp_sounds_pref: FeatureToggle = {
   component: CheckboxInput,
 };
 
+export const subtler_sound: FeatureToggle = {
+  name: 'Toggle Subtler Sound',
+  category: 'SOUND',
+  description: 'Toggles whether you hear subtler emote sound effects',
+  component: CheckboxInput,
+};
+
 export const bimbofication_pref: FeatureToggle = {
   name: 'Bimbofication',
   category: 'ERP',
