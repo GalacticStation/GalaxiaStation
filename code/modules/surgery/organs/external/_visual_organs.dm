@@ -43,8 +43,10 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	if(accessory_type)
 		bodypart_overlay.set_appearance(accessory_type)
 		bodypart_overlay.imprint_on_next_insertion = FALSE
+	/* NOVA EDIT BEGIN - Customization
 	else if(loc) //we've been spawned into the world, and not in nullspace to be added to a limb (yes its fucking scuffed)
 		bodypart_overlay.randomize_appearance()
+	*/// NOVA EDIT END
 	else
 		update_overlays = FALSE
 

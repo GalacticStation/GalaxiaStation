@@ -1,3 +1,6 @@
+/obj/item/organ/ears
+	bodypart_overlay = /datum/bodypart_overlay/mutant/ears
+
 /obj/item/organ/ears/mutant
 	name = "fluffy ears"
 	desc = "Wait, there's two pairs of these?"

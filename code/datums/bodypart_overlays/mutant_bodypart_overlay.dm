@@ -26,6 +26,10 @@
 /datum/bodypart_overlay/mutant/proc/on_mob_insert(obj/item/organ/parent, mob/living/carbon/receiver)
 	SIGNAL_HANDLER
 
+	// NOVA EDIT ADDITION START - Customization
+	if(isnull(receiver.has_dna()))
+		return
+	// NOVA EDIT ADDITION END
 	if(!should_visual_organ_apply_to(parent.type, receiver))
 		stack_trace("adding a [parent.type] to a [receiver.type] when it shouldn't be!")
 
