@@ -5,26 +5,34 @@
 	medical_record_text = "Patient has a lethal condition in their brain that is slowly causing brain death."
 	icon = FA_ICON_BRAIN
 
-// Override of Brain Tumor quirk for robotic/synthetic species with posibrains.
+// Override of Brain Tumor quirk for species with artificial brains.
 // Does not appear in TGUI or the character preferences window.
 /datum/quirk/item_quirk/brainproblems/synth
-	name = "Positronic Cascade Anomaly"
-	desc = "Your positronic brain is slowly corrupting itself due to a cascading anomaly. Better bring some liquid solder!"
 	gain_text = "<span class='danger'>You feel glitchy.</span>"
 	lose_text = "<span class='notice'>You no longer feel glitchy.</span>"
-	medical_record_text = "Patient has a cascading anomaly in their brain that is slowly causing brain death."
 	icon = FA_ICON_BRAZILIAN_REAL_SIGN
 	mail_goodies = list(/obj/item/storage/pill_bottle/liquid_solder/braintumor)
 	hidden_quirk = TRUE
 
+/datum/quirk/item_quirk/brainproblems/synth/add()
+	. = ..()
+	var/obj/item/organ/brain/synth/synth_brain = quirk_holder.get_organ_slot(ORGAN_SLOT_BRAIN)
+	medical_record_text = "Patient has a malfunction in their [synth_brain] that is slowly causing brain death."
+	switch(synth_brain.type)
+		if(/obj/item/organ/brain/synth)
+			name = "Positronic Cascade Anomaly"
+		if(/obj/item/organ/brain/synth/mmi)
+			name = "Interface Rejection Syndrome"
+		if(/obj/item/organ/brain/synth/circuit)
+			name = "Processor Firmware Bug"
+
 // If brainproblems is added to a synth, this detours to the brainproblems/synth quirk.
-// TODO: Add more brain-specific detours when PR #16105 is merged
 /datum/quirk/item_quirk/brainproblems/add_to_holder(mob/living/new_holder, quirk_transfer, client/client_source)
-	if(!issynthetic(new_holder) || type != /datum/quirk/item_quirk/brainproblems)
-		// Defer to TG brainproblems if the character isn't robotic.
+	var/obj/item/organ/brain/synth/synth_brain = new_holder.get_organ_slot(ORGAN_SLOT_BRAIN)
+	if(!istype(synth_brain) || type != /datum/quirk/item_quirk/brainproblems)
+		// Defer to TG brainproblems if the character's brain isn't robotic.
 		return ..()
 
-	// TODO: Check brain type and detour to appropriate brainproblems quirk
 	var/datum/quirk/item_quirk/brainproblems/synth/bp_synth = new
 	qdel(src)
 	return bp_synth.add_to_holder(new_holder, quirk_transfer, client_source)

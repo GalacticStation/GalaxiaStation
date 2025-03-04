@@ -5,18 +5,39 @@
 		add_reagent(r_id, amt, data, no_react = TRUE)
 
 /proc/reagent_process_flags_valid(mob/processor, datum/reagent/reagent)
-	if(ishuman(processor))
-		var/mob/living/carbon/human/human_processor = processor
-		//Check if this mob's species is set and can process this type of reagent
-		//If we somehow avoided getting a species or reagent_flags set, we'll assume we aren't meant to process ANY reagents
-		if(human_processor.dna && human_processor.dna.species.reagent_flags)
-			var/processor_flags = human_processor.dna.species.reagent_flags
-			if((reagent.process_flags & REAGENT_SYNTHETIC) && (processor_flags & PROCESS_SYNTHETIC))		//SYNTHETIC-oriented reagents require PROCESS_SYNTHETIC
+	if(!ishuman(processor))
+		if(reagent.process_flags == REAGENT_SYNTHETIC)
+			return FALSE
+		return TRUE
+
+	var/mob/living/carbon/human/human_processor = processor
+
+	//Check if this mob's species is set and can process this type of reagent
+	//If we somehow avoided getting a species or reagent_flags set, we'll assume we aren't meant to process ANY reagents
+	if(human_processor.dna && human_processor.dna.species.reagent_flags)
+		// Drugs for organics only work on organic brains
+		if(istype(reagent, /datum/reagent/drug) && !(reagent.process_flags & REAGENT_SYNTHETIC))
+			var/obj/item/organ/brain/owner_brain = human_processor.get_organ_slot(ORGAN_SLOT_BRAIN)
+			if(!IS_ORGANIC_ORGAN(owner_brain))
+				return FALSE
+
+		var/processor_flags = human_processor.dna.species.reagent_flags
+
+		// SYNTHETIC-oriented reagents require PROCESS_SYNTHETIC or a synth liver
+		if((reagent.process_flags & REAGENT_SYNTHETIC))
+			if(processor_flags & PROCESS_SYNTHETIC)
 				return TRUE
-			if((reagent.process_flags & REAGENT_ORGANIC) && (processor_flags & PROCESS_ORGANIC))		//ORGANIC-oriented reagents require PROCESS_ORGANIC
+			var/obj/item/organ/liver/owner_liver = human_processor.get_organ_slot(ORGAN_SLOT_LIVER)
+			if(istype(owner_liver, /obj/item/organ/liver/synth))
 				return TRUE
-		return FALSE
-	else if(reagent.process_flags == REAGENT_SYNTHETIC)
-		//We'll assume that non-human mobs lack the ability to process synthetic-oriented reagents (adjust this if we need to change that assumption)
+
+		// ORGANIC-oriented reagents require PROCESS_ORGANIC or a non-synth liver
+		if((reagent.process_flags & REAGENT_ORGANIC))
+			if(processor_flags & PROCESS_ORGANIC)
+				return TRUE
+			var/obj/item/organ/liver/owner_liver = human_processor.get_organ_slot(ORGAN_SLOT_LIVER)
+			if(!istype(owner_liver, /obj/item/organ/liver/synth))
+				return TRUE
+
 		return FALSE
 	return TRUE
