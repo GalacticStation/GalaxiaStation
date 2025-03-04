@@ -70,7 +70,7 @@
 /turf/open/misc/asteroid/snow/icemoon,
 /area/icemoon/surface/outdoors/nospawn)
 "S" = (
-/obj/structure/ore_vent/ghost_mining/snowland,
+/obj/structure/ore_vent/ghost_mining/snowland/ras,
 /turf/open/misc/asteroid/snow/icemoon,
 /area/icemoon/surface/outdoors/nospawn)
 "Y" = (
