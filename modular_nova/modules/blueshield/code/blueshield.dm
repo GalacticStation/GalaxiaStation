@@ -91,9 +91,15 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/hellfire/blueshield)
 
 /obj/item/choice_beacon/blueshield
-	name = "gunset beacon"
-	desc = "A single use beacon to deliver a gunset of your choice. Please only call this in your office"
-	company_source = "Sol Defense Contracting"
+	name = "Weaponry beacon"
+	desc = "A single use beacon to deliver a weapon or set of your choice. Please only call this in your office!"
+
+	icon_state = "cc_becon"
+	inhand_icon_state = "cc_becon"
+	icon = 'modular_nova/modules/modular_items/icons/remote.dmi'
+	lefthand_file = 'modular_nova/modules/modular_items/icons/inhand/mobs/lefthand_remote.dmi'
+	righthand_file = 'modular_nova/modules/modular_items/icons/inhand/mobs/righthand_remote.dmi'
+	company_source = "Nanotrasen Rapid Equipment Deployment Division"
 	company_message = span_bold("Supply Pod incoming, please stand by.")
 
 /obj/item/choice_beacon/blueshield/generate_display_names()
@@ -101,6 +107,7 @@
 		"Takbok Revolver Set" = /obj/item/storage/toolbox/guncase/nova/pistol/trappiste_small_case/takbok,
 		"Custom Hellfire Laser Rifle" = /obj/item/gun/energy/laser/hellgun/blueshield,
 		"NT20 Submachinegun Gunset" = /obj/item/storage/toolbox/guncase/nova/nt20,
+		"NT Energy Blade" = /obj/item/melee/energy/nova/blueshieldsword,
 	)
 
 	return selectable_gun_types
