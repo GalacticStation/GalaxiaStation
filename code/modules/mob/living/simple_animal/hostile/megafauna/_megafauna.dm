@@ -100,6 +100,7 @@
 	if(!crusher_kill && ashie_damage && crusher_loot && ashie_damage.total_damage >= maxHealth * 0.6)
 		spawn_crusher_loot()
 	// NOVA EDIT ADDITION END
+	spawn_crusher_loot() // NOVA EDIT ADDITION - Spawns the crusher loot regardless.
 	if(true_spawn && !(flags_1 & ADMIN_SPAWNED_1))
 		var/tab = "megafauna_kills"
 		if(crusher_kill)
@@ -111,7 +112,8 @@
 
 /// Spawns crusher loot instead of normal loot
 /mob/living/simple_animal/hostile/megafauna/proc/spawn_crusher_loot()
-	loot = crusher_loot
+	if (crusher_loot != null) // NOVA EDIT ADDITION - Fixes bug of crusher_loot overriding loot when there is no such, only for legion so far.
+		loot = crusher_loot
 
 /mob/living/simple_animal/hostile/megafauna/gib()
 	if(health > 0)

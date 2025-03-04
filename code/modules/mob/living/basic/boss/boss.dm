@@ -73,6 +73,7 @@
 			grant_achievement(achievement_type, score_achievement_type, crusher_kill, force_grant)
 			SSblackbox.record_feedback("tally", tab, 1, "[initial(name)]")
 
+	crusher_kill = TRUE // NOVA EDIT ADDITION - patch so it always drop the crusher loot.
 	for(var/path in crusher_kill ? crusher_loot : loot) // using this instead of deathdrops and crusher_loot because we calculate differently and removing the element is ass
 		new path(drop_location())
 
